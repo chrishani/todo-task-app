@@ -1,6 +1,7 @@
 <script setup>
 import { ref, reactive, onMounted } from 'vue';
 import {Head, router, useForm} from "@inertiajs/vue3";
+import InputError from "@/Components/InputError.vue";
 
 const form = useForm({
     title: '',
@@ -73,6 +74,7 @@ const markAsDone = (taskId) => {
                             placeholder="Title"
                             required
                         >
+                        <InputError v-if="form.errors.title" class="p-error">{{ form.errors.title }}</InputError>
                     </div>
                     <div class="form-group">
                         <textarea
@@ -82,6 +84,7 @@ const markAsDone = (taskId) => {
                             rows="4"
                             required
                         ></textarea>
+                        <InputError v-if="form.errors.description" class="p-error">{{ form.errors.description }}</InputError>
                     </div>
                     <div class="btn-container">
                         <button
