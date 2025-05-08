@@ -1,11 +1,22 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TaskController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
+
+Route::get('/', [TaskController::class, 'index']);
+
+Route::resource('tasks', TaskController::class)
+    ->except(['create','destroy','show','edit','update']);
+
+Route::get('tasks', [TaskController::class, 'list']);
+
+Route::post('tasks/complete/{task}', [TaskController::class, 'markAsDone'])->name('tasks.complete');
+
+Route::get('/home-page', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
