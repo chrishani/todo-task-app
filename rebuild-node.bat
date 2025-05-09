@@ -1,0 +1,9 @@
+@echo off
+echo Removing node_modules container volume...
+docker-compose exec node rm -rf /var/www/node_modules
+
+echo Installing Node dependencies in the container...
+docker-compose exec node npm install
+
+echo Starting development server...
+docker-compose exec node npm run dev
